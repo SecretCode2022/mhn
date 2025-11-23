@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考研加油！你的专属祝福</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #e6f7ff, #f0f9ff);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #2c3e50;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.8rem;
+            color: #1a73e8;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(26, 115, 232, 0.2);
+        }
+        .subtitle {
+            font-size: 1.4rem;
+            color: #555;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+        /* 音乐播放控件样式 */
+        .music-control {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 30px auto;
+            cursor: pointer;
+        }
+        .play-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a73e8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            transition: transform 0.5s ease;
+            z-index: 2;
+        }
+        .play-icon.rotating {
+            transform: rotate(360deg);
+        }
+        .music-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(26,115,232,0.2) 0%, rgba(26,115,232,0) 70%);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .video-wrapper {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            margin: 30px 0;
+            position: relative;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .note {
+            background: #e3f2fd;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 25px;
+            font-size: 0.95rem;
+            color: #0d47a1;
+            border-left: 4px solid #1a73e8;
+        }
+        .footer {
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>考研加油！</h1>
+        <p class="subtitle">你不是一个人在战斗，我永远为你打call！  
+        每一步努力都在悄悄开花，坚持就是最酷的逆袭～</p>
+        
+        <!-- 音乐播放控件（点击后开始播放） -->
+        <div class="music-control" id="musicControl">
+            <div class="play-icon">▶</div>
+            <div class="music-bg"></div>
+        </div>
+        
+        <!-- 视频（点击后播放） -->
+        <div class="video-wrapper">
+            <video width="100%" controls>
+                <source src="congratulations.mp4" type="video/mp4">
+                您的浏览器不支持视频播放
+            </video>
+        </div>
+        
+        <div class="note">
+            📌 点击音乐图标开始BGM，视频点击控制条播放<br>
+            音量已默认调至100%（无需手动调整）
+        </div>
+        
+        <div class="footer">
+            ❤️ 为你点亮的每一盏夜灯，都是未来的光
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // BGM音频元素
+            const bgm = document.createElement('audio');
+            bgm.loop = true;
+            bgm.src = 'music.mp3'; // 替换为您的BGM路径
+            bgm.volume = 1; // 默认非静音
+            
+            // 音乐控制按钮
+            const musicControl = document.getElementById('musicControl');
+            const playIcon = document.querySelector('.play-icon');
+            
+            // 点击音乐图标触发播放
+            musicControl.addEventListener('click', function() {
+                if (bgm.paused) {
+                    bgm.play();
+                    playIcon.classList.add('rotating');
+                } else {
+                    bgm.pause();
+                    playIcon.classList.remove('rotating');
+                }
+            });
+            
+            // 确保BGM加载完成
+            bgm.addEventListener('loadeddata', function() {
+                console.log('BGM已加载，等待点击播放');
+            });
+            
+            // 视频自动暂停（避免BGM干扰）
+            const video = document.querySelector('video');
+            video.addEventListener('play', function() {
+                bgm.volume = 0.8; // 视频播放时略微降低BGM音量
+            });
+            video.addEventListener('pause', function() {
+                bgm.volume = 1; // 视频暂停时恢复BGM音量
+            });
+        });
+    </script>
+</body>
+</html>
